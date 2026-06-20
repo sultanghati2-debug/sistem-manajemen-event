@@ -18,6 +18,23 @@ return new class extends Migration
             $table->enum('role', ['admin', 'user'])->default('user'); 
             $table->rememberToken();
             $table->timestamps();
+
+            // 2. TAMBAHKAN INI: Tabel Password Reset
+    Schema::create('password_reset_tokens', function (Blueprint $table) {
+        $table->string('email')->primary();
+        $table->string('token');
+        $table->timestamp('created_at')->nullable();
+    });
+
+    // 3. TAMBAHKAN INI: Tabel Sessions (Ini yang menyebabkan Error 1146)
+    Schema::create('sessions', function (Blueprint $table) {
+        $table->string('id')->primary();
+        $table->foreignId('user_id')->nullable()->index();
+        $table->string('ip_address', 45)->nullable();
+        $table->text('user_agent')->nullable();
+        $table->longText('payload');
+        $table->integer('last_activity')->index();
+    });
         });
 
         // (Bagian tabel password_reset_tokens dan sessions biarkan bawaan Laravel)
