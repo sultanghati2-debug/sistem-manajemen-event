@@ -3,9 +3,12 @@
         @foreach($events as $event)
             <a href="{{ route('login') }}" class="bg-gray-900 rounded-2xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 flex flex-col group border border-gray-800 cursor-pointer block">
                 
-                <div class="relative h-48 overflow-hidden bg-gray-955">
-                    @if($event->image_path)
-                        <img src="{{ asset('storage/' . $event->image_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="relative h-48 overflow-hidden bg-gray-950">
+                    @if($event->image_path && file_exists(storage_path('app/public/' . $event->image_path)))
+                        <img src="{{ asset('storage/' . $event->image_path) }}" 
+                             alt="{{ $event->title }}" 
+                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                             onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\"w-full h-full bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center opacity-70\"><svg class=\"h-12 w-12 text-white/30\" fill=\"none\" viewBox=\"0 0 24 24\" stroke=\"currentColor\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"1.5\" d=\"M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z\" /></svg></div>';">
                     @else
                         <div class="w-full h-full bg-gradient-to-br from-indigo-600 to-purple-800 flex items-center justify-center opacity-70">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white/30" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -10,9 +10,13 @@
 <body class="bg-gray-900 font-sans antialiased">
 
     <section class="relative min-h-screen flex items-center overflow-hidden border-b border-gray-800">
-        @if($heroEvent && $heroEvent->image_path)
+        
+        @if($heroEvent && $heroEvent->image_path && file_exists(storage_path('app/public/' . $heroEvent->image_path)))
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset('storage/' . $heroEvent->image_path) }}" alt="{{ $heroEvent->title }}" class="w-full h-full object-cover object-center opacity-40">
+                <img src="{{ asset('storage/' . $heroEvent->image_path) }}" 
+                     alt="{{ $heroEvent->title }}" 
+                     class="w-full h-full object-cover object-center opacity-40"
+                     onerror="this.style.display='none'; this.parentElement.className='absolute inset-0 z-0 bg-gradient-to-br from-indigo-955 via-purple-955 to-slate-955 opacity-60';">
                 <div class="absolute inset-0 bg-gradient-to-r from-gray-955 via-gray-900/80 to-transparent"></div>
             </div>
         @else
@@ -70,7 +74,7 @@
         </div>
     </section>
 
-    <section id="semua-event" class="py-20 bg-gray-950">
+    <section id="semua-event" class="py-20 bg-gray-955">
         <div class="container mx-auto px-6 md:px-12">
             
             <div class="mb-12 text-center md:text-left">
