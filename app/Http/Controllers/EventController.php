@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Mengambil semua data event dari database
-        $events = Event::all();
-        
-        // Mengirim ke file welcome.blade.php
-        return view('welcome', compact('events'));
+        $events = Event::query()
+            ->where('event_date', '>=', now())
+            ->orderBy('event_date', 'asc')
+            ->get();
+
+        return view('home', compact('events'));
     }
 }
