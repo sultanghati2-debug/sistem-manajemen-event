@@ -8,6 +8,9 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
+        {
+        return view('dashboard');
+    }
         // Mengambil data role dari user yang sedang login
         $role = $request->user()->role;
 
