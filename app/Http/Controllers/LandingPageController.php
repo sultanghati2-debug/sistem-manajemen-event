@@ -9,21 +9,13 @@ class LandingPageController extends Controller
 {
     public function index()
     {
-        // 1. Ambil 1 event terdekat untuk Hero Section
-        $heroEvent = Event::where('event_date', '>=', now())
-                          ->orderBy('event_date', 'asc')
-                          ->first();
-
-        // 2. Ambil semua event yang akan datang (kecuali yang sudah masuk Hero) untuk Grid Cards
-        // Kita batasi misalnya maksimal 6 data
-        $events = Event::where('event_date', '>=', now())
-                       ->when($heroEvent, function ($query, $heroEvent) {
-                           return $query->where('id', '!=', $heroEvent->id);
-                       })
-                       ->orderBy('event_date', 'asc')
-                       ->take(6)
-                       ->get();
-
-        return view('welcome', compact('heroEvent', 'events'));
+    // Ambil semua event
+    $events = \App\Models\Event::all();
+    
+    // Ambil 1 event pertama untuk Hero Section (atau bisa pakai logika lain)
+    $heroEvent = \App\Models\Event::latest()->first();
+    
+    // Kirim keduanya ke view
+    return view('welcome', compact('events', 'heroEvent'));
     }
 }

@@ -29,4 +29,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function events()
+{
+    // Pastikan nama tabelnya 'event_user'
+    return $this->belongsToMany(Event::class, 'event_user', 'user_id', 'event_id')->withTimestamps();
+}
 }

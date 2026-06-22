@@ -74,22 +74,53 @@
         </div>
     </section>
 
-    <section id="semua-event" class="py-20 bg-gray-955">
-        <div class="container mx-auto px-6 md:px-12">
+<section id="semua-event" class="py-16 bg-slate-900">
+    <div class="container mx-auto px-4 max-w-7xl">
+        <h2 class="text-3xl font-bold text-white mb-8">Semua Event</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <div class="mb-12 text-center md:text-left">
-                <h2 class="text-3xl font-bold text-white tracking-tight">
-                    Jelajahi Event Mendatang
-                </h2>
-                <p class="mt-2 text-gray-400">
-                    Temukan dan ikuti berbagai kegiatan seru yang akan diselenggarakan dalam waktu dekat.
-                </p>
-            </div>
+            @forelse($events as $event)
+                <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-blue-500/20 hover:-translate-y-1 flex flex-col">
+                    
+                    <div class="relative h-52 bg-slate-700 w-full">
+                        @if($event->image_path)
+                            <img src="{{ asset('storage/' . $event->image_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
+                        @else
+                            <div class="w-full h-full flex flex-col items-center justify-center text-slate-500">
+                                <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                                <span class="text-sm">Gambar Tidak Tersedia</span>
+                            </div>
+                        @endif
+                    </div>
 
-            @include('card-grid')
-
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-bold text-white mb-2">{{ $event->title }}</h3>
+                        
+                        <p class="text-sm text-blue-400 mb-4 font-medium flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            {{ $event->event_date ? \Carbon\Carbon::parse($event->event_date)->translatedFormat('d F Y') : 'Tanggal TBA' }}
+                        </p>
+                        
+                        <p class="text-slate-300 text-sm mb-6 flex-grow line-clamp-3">
+                            {{ $event->description }}
+                        </p>
+                        
+                        <a href="{{ route('events.show', $event->id) }}" class="mt-auto block w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2.5 rounded-lg transition duration-300">
+                            Detail Event
+                        </a>
+                    </div>
+                </div>
+            @empty
+                <div class="col-span-full text-center py-16 bg-slate-800 border border-slate-700 rounded-xl">
+                    <p class="text-slate-400 text-lg">Belum ada event yang tersedia saat ini.</p>
+                </div>
+            @endforelse
+            
         </div>
-    </section>
-
+    </div>
+</section>
 </body>
 </html>
