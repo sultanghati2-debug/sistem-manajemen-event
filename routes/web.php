@@ -26,8 +26,9 @@ Route::middleware('auth')->group(function () {
 
     // --- AREA ADMIN ---
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
-        Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
-        Route::resource('events', AdminEventController::class);
+    Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
+    Route::resource('events', AdminEventController::class);
+        
     });
 
     // --- AREA USER ---
@@ -41,6 +42,11 @@ Route::middleware(['role:user', 'auth'])->prefix('user')->name('user.')->group(f
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+    Route::middleware(['role:admin', 'auth'])->prefix('admin')->name('admin.')->group(function () {
+    // Pastikan baris ini ada:
+    Route::resource('events', \App\Http\Controllers\Admin\EventController::class);
 });
 
 require __DIR__.'/auth.php';

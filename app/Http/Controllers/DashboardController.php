@@ -19,7 +19,14 @@ class DashboardController extends Controller
 
 public function userDashboard()
 {
-    $registeredEvents = auth()->user()->events()->latest()->get();
-    return view('user_dashboard', compact('registeredEvents'));
+    $user = auth()->user();
+    
+    // Mengambil event yang diikuti
+    $registeredEvents = $user->events;
+    
+    // Menghitung berapa banyak sertifikat yang sudah tersedia (tidak NULL)
+    $certificateCount = $user->events()->wherePivotNotNull('certificate_path')->count();
+
+    return view('user_dashboard', compact('registeredEvents', 'certificateCount'));
 }
 }

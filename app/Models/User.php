@@ -30,9 +30,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function events()
-{
-    // Pastikan nama tabelnya 'event_user'
-    return $this->belongsToMany(Event::class, 'event_user', 'user_id', 'event_id')->withTimestamps();
-}
+ public function events()
+    {
+        // Tambahkan ->withPivot('certificate_path')
+        return $this->belongsToMany(Event::class, 'event_user')
+                    ->withPivot('certificate_path')
+                    ->withTimestamps();
+    }
 }

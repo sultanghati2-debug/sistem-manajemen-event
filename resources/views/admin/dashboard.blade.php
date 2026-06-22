@@ -23,9 +23,8 @@
                         <h4 class="text-lg font-semibold text-gray-800 mb-4">Menu Admin</h4>
                         <ul class="list-disc list-inside space-y-3 text-blue-600">
                             <li>
-                                <a href="{{ route('admin.events.index') }}" class="hover:text-blue-800 hover:underline transition duration-150">
-                                    Kelola Event
-                                </a>
+                                <a href="{{ route('admin.events.index') }}" class="text-blue-600 hover:underline">
+                                Kelola Event</a>
                             </li>
                             <li>
                                 <span class="text-gray-500">Kelola Pengguna (Coming Soon)</span>

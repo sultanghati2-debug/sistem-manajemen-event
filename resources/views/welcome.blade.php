@@ -11,9 +11,9 @@
 
     <section class="relative min-h-screen flex items-center overflow-hidden border-b border-gray-800">
         
-        @if($heroEvent && $heroEvent->image_path && file_exists(storage_path('app/public/' . $heroEvent->image_path)))
+        @if($heroEvent && $heroEvent->image)
             <div class="absolute inset-0 z-0">
-                <img src="{{ asset('storage/' . $heroEvent->image_path) }}" 
+                <img src="{{ \Illuminate\Support\Str::startsWith($heroEvent->image, 'events/') ? asset('storage/' . $heroEvent->image) : asset($heroEvent->image) }}" 
                      alt="{{ $heroEvent->title }}" 
                      class="w-full h-full object-cover object-center opacity-40"
                      onerror="this.style.display='none'; this.parentElement.className='absolute inset-0 z-0 bg-gradient-to-br from-indigo-955 via-purple-955 to-slate-955 opacity-60';">
@@ -30,7 +30,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
-                        {{ $heroEvent->event_date->translatedFormat('d F Y - H:i') }} WIB
+                        {{ \Carbon\Carbon::parse($heroEvent->event_date)->translatedFormat('d F Y - H:i') }} WIB
                     </div>
 
                     <h1 class="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-4 leading-tight">
@@ -53,7 +53,7 @@
                             Detail Event
                         </a>
                         <a href="#semua-event" class="inline-flex justify-center items-center bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-3.5 rounded-lg transition duration-300 backdrop-blur-sm border border-white/10 text-center">
-                            Lihat Event Lainnya
+                            Lilihat Event Lainnya
                         </a>
                     </div>
                 @else
@@ -76,7 +76,26 @@
 
 <section id="semua-event" class="py-16 bg-slate-900">
     <div class="container mx-auto px-4 max-w-7xl">
-        <h2 class="text-3xl font-bold text-white mb-8">Semua Event</h2>
+        
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+            <h2 class="text-3xl font-bold text-white">Semua Event</h2>
+            
+            @auth
+                <div class="flex flex-col items-center sm:items-end">
+                    <a href="/dashboard" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-medium px-5 py-2.5 rounded-lg transition duration-300 shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                        Kembali ke Dashboard
+                    </a>
+                    <p class="text-xs text-slate-500 mt-2">Login sebagai: <span class="font-semibold text-indigo-400">{{ Auth::user()->name }}</span></p>
+                </div>
+            @else
+                <a href="{{ route('login') }}" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-5 py-2.5 rounded-lg transition duration-300 shadow-md">
+                    Login untuk Mendaftar
+                </a>
+            @endauth
+        </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             
@@ -84,8 +103,8 @@
                 <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-blue-500/20 hover:-translate-y-1 flex flex-col">
                     
                     <div class="relative h-52 bg-slate-700 w-full">
-                        @if($event->image_path)
-                            <img src="{{ asset('storage/' . $event->image_path) }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
+                        @if($event->image)
+                            <img src="{{ \Illuminate\Support\Str::startsWith($event->image, 'events/') ? asset('storage/' . $event->image) : asset($event->image) }}" alt="{{ $event->title }}" class="w-full h-full object-cover">
                         @else
                             <div class="w-full h-full flex flex-col items-center justify-center text-slate-500">
                                 <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

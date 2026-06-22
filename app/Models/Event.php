@@ -7,7 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany; // Import yang benar
 
 class Event extends Model
 {
-    protected $fillable = ['title', 'description', 'event_date', 'location', 'image_path'];
+    protected $fillable = [
+    'title',
+    'event_date',
+    'location',
+    'description',
+    'image', // Tambahkan baris ini
+];
 
     protected $casts = [
     'event_date' => 'datetime',
@@ -17,7 +23,8 @@ class Event extends Model
      */
 public function users()
 {
-    // Pastikan ini adalah satu-satunya relasi yang kamu gunakan
-    return $this->belongsToMany(\App\Models\User::class, 'event_user', 'event_id', 'user_id')->withTimestamps();
+    return $this->belongsToMany(\App\Models\User::class, 'event_user', 'event_id', 'user_id')
+                ->withPivot('certificate_path') // Pastikan ini ada!
+                ->withTimestamps();
 }
 }
