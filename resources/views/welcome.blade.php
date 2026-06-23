@@ -160,8 +160,13 @@
                     </div>
                 </div>
             @empty
-                <div class="col-span-full text-center py-16 bg-slate-800 border border-slate-700 rounded-xl">
-                    <p class="text-slate-400 text-lg">Belum ada event yang tersedia saat ini.</p>
+                <div class="col-span-full text-center py-16 bg-slate-800 border border-slate-700 rounded-xl shadow-inner">
+                    @if(request('search'))
+                        <p class="text-slate-400 text-lg">Maaf, event dengan kata kunci "<span class="text-indigo-400 font-semibold">{{ request('search') }}</span>" tidak ditemukan.</p>
+                        <a href="{{ url('/') }}" class="inline-block mt-4 text-indigo-400 hover:text-indigo-300 underline underline-offset-4">Kembali ke semua event</a>
+                    @else
+                        <p class="text-slate-400 text-lg">Belum ada event yang tersedia saat ini.</p>
+                    @endif
                 </div>
             @endforelse
             
