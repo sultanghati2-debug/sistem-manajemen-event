@@ -29,4 +29,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+ public function events()
+    {
+        // Tambahkan ->withPivot('certificate_path')
+        return $this->belongsToMany(Event::class, 'event_user')
+                    ->withPivot('certificate_path')
+                    ->withTimestamps();
+    }
 }
