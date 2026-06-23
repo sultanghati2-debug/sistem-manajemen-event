@@ -113,6 +113,7 @@
                     
                     <input type="text" 
                            name="search" 
+                           value="{{ request('search') }}" 
                            placeholder="Cari event, konser, atau workshop..." 
                            class="w-full pl-11 pr-4 py-3.5 bg-slate-800/80 border border-slate-600 text-white rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-inner placeholder-slate-400">
                 </div>
