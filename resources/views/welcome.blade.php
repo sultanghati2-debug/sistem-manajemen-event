@@ -101,16 +101,27 @@
                 @else
                 @endauth
         </div>  
-        <div class="mb-8 max-w-xl">
-           <form action="{{ url('/') }}" method="GET" class="flex gap-3">
-                <input type="text" 
-                       name="search" 
-                       placeholder="Cari event..." 
-                       class="w-full bg-slate-800 border border-slate-600 text-white px-4 py-2.5 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-sm">
+      <div class="mb-8 max-w-2xl"> 
+            <form action="{{ url('/') }}" method="GET" class="relative flex items-center gap-3">
+                
+                <div class="relative w-full">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    
+                    <input type="text" 
+                           name="search" 
+                           placeholder="Cari event, konser, atau workshop..." 
+                           class="w-full pl-11 pr-4 py-3.5 bg-slate-800/80 border border-slate-600 text-white rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-inner placeholder-slate-400">
+                </div>
+
                 <button type="submit" 
-                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-2.5 rounded-lg transition duration-300 shadow-md whitespace-nowrap">
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-8 py-3.5 rounded-xl transition duration-300 shadow-lg shadow-indigo-600/30 whitespace-nowrap flex items-center gap-2">
                     Cari
                 </button>
+
             </form>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">  
