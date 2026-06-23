@@ -15,7 +15,10 @@ class LandingPageController extends Controller
         // Cek apakah ada kata kunci pencarian
         if ($search) {
             // Jika ada, cari event yang judulnya mengandung kata kunci tersebut
-            $events = \App\Models\Event::where('title', 'like', '%' . $search . '%')->get();
+            $events = \App\Models\Event::where('title', 'like', '%' . $search . '%')
+            ->orWhere('location', 'like', '%' . $search . '%')
+            ->orWhere('description', 'like', '%' . $search . '%')
+            ->get();
         } else {
             // Jika tidak ada pencarian, tampilkan semua event
             $events = \App\Models\Event::all();
