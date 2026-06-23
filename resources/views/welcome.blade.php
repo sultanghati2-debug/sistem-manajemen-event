@@ -104,7 +104,7 @@
       <div class="mb-8 max-w-2xl"> 
             <form action="{{ url('/') }}" method="GET" class="relative flex items-center gap-3">
                 
-                <div class="relative w-full">
+               <div class="relative w-full">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                         <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -115,7 +115,15 @@
                            name="search" 
                            value="{{ request('search') }}" 
                            placeholder="Cari event, konser, atau workshop..." 
-                           class="w-full pl-11 pr-4 py-3.5 bg-slate-800/80 border border-slate-600 text-white rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-inner placeholder-slate-400">
+                           class="w-full pl-11 pr-12 py-3.5 bg-slate-800/80 border border-slate-600 text-white rounded-xl focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/50 transition-all shadow-inner placeholder-slate-400">
+
+                    @if(request('search'))
+                        <a href="{{ url('/') }}" class="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-400 hover:text-rose-400 transition-colors" title="Hapus Pencarian">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </a>
+                    @endif
                 </div>
 
                 <button type="submit" 
