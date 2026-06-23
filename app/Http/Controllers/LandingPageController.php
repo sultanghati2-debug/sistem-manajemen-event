@@ -7,18 +7,24 @@ use Illuminate\Http\Request;
 
 class LandingPageController extends Controller
 {
-        public function index(Request $request)
+    public function index(Request $request)
     {
-        // 1. Tangkap request pencarian
+        // Tangkap request pencarian
         $search = $request->input('search');
 
-        // Ambil semua event
-        $events = \App\Models\Event::all();
+        // Cek apakah ada kata kunci pencarian
+        if ($search) {
+            // Jika ada, cari event yang judulnya mengandung kata kunci tersebut
+            $events = \App\Models\Event::where('title', 'like', '%' . $search . '%')->get();
+        } else {
+            // Jika tidak ada pencarian, tampilkan semua event
+            $events = \App\Models\Event::all();
+        }
         
-        // Ambil 1 event pertama untuk Hero Section (atau bisa pakai logika lain)
+        // Ambil 1 event pertama untuk Hero Section
         $heroEvent = \App\Models\Event::latest()->first();
         
-        // 2. Kirim $events, $heroEvent, DAN $search ke view
+        // Kirim $events, $heroEvent, dan $search ke view
         return view('welcome', compact('events', 'heroEvent', 'search'));
     }
 }
