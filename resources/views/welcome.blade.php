@@ -96,9 +96,24 @@
                 </a>
             @endauth
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
+        <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+            @auth
+                @else
+                @endauth
+        </div>  
+        <div class="mb-8 max-w-xl">
+           <form action="{{ url('/') }}" method="GET" class="flex gap-3">
+                <input type="text" 
+                       name="search" 
+                       placeholder="Cari event..." 
+                       class="w-full bg-slate-800 border border-slate-600 text-white px-4 py-2.5 rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-sm">
+                <button type="submit" 
+                        class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-2.5 rounded-lg transition duration-300 shadow-md whitespace-nowrap">
+                    Cari
+                </button>
+            </form>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">  
             @forelse($events as $event)
                 <div class="bg-slate-800 border border-slate-700 rounded-xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-blue-500/20 hover:-translate-y-1 flex flex-col">
                     
