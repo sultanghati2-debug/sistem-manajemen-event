@@ -24,10 +24,22 @@ Route::middleware('auth')->group(function () {
     Route::get('/events/{id}/register', [EventController::class, 'registerForm'])->name('events.register.form');
     Route::post('/events/{id}/register', [EventController::class, 'processRegister'])->name('events.register.process');
 
-    // --- AREA ADMIN ---
+  // --- AREA ADMIN ---
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', function () { return view('admin.dashboard'); })->name('dashboard');
-    Route::resource('events', AdminEventController::class);
+        
+        // UBAH BARIS INI:
+        Route::get('/dashboard', function () { 
+            // 1. Ambil data event dari yang terbaru
+            $events = \App\Models\Event::latest()->get();
+            
+            // 2. Ambil jumlah total event untuk bagian statistik atas
+            $totalEvents = \App\Models\Event::count();
+            
+            // 3. Kirimkan datanya ke view
+            return view('admin.dashboard', compact('events', 'totalEvents')); 
+        })->name('dashboard');
+
+        Route::resource('events', AdminEventController::class);
         
     });
 

@@ -48,11 +48,20 @@
               class="w-full bg-[#0f172a] border border-gray-800 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-indigo-600 outline-none transition"></textarea>
 </div>
 
-            <div>
-                <label class="block text-gray-400 text-sm font-bold mb-2">Poster / Gambar Event (Opsional)</label>
-                <input type="file" name="image" accept="image/*" 
-                       class="w-full bg-[#0f172a] border border-gray-800 rounded-xl px-4 py-3 text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500">
-            </div>
+            <div class="mb-4">
+    <label for="image" class="block text-sm font-medium text-white mb-2">Gambar / Poster Event</label>
+    
+    <input type="file" id="image" name="image" accept="image/*" class="block w-full text-sm text-slate-400
+        file:mr-4 file:py-2.5 file:px-4
+        file:rounded-lg file:border-0
+        file:text-sm file:font-semibold
+        file:bg-indigo-600/20 file:text-indigo-400
+        hover:file:bg-indigo-600/30 transition">
+        
+    <p class="mt-1.5 text-xs text-slate-400">
+        Format: JPG, PNG. Maksimal ukuran: <span class="font-semibold text-rose-400">2MB</span>.
+    </p>
+</div>
 
             <div class="flex justify-end gap-4 pt-4 border-t border-gray-800">
                 <a href="{{ route('admin.events.index') }}" class="px-6 py-3 text-gray-400 hover:text-white transition">Batal</a>
