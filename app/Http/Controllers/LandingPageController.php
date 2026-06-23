@@ -13,15 +13,16 @@ class LandingPageController extends Controller
         $search = $request->input('search');
 
         // Cek apakah ada kata kunci pencarian
-        if ($search) {
-            // Jika ada, cari event yang judulnya mengandung kata kunci tersebut
+       if ($search) {
+            // Cari dan urutkan dari yang terbaru
             $events = \App\Models\Event::where('title', 'like', '%' . $search . '%')
-            ->orWhere('location', 'like', '%' . $search . '%')
-            ->orWhere('description', 'like', '%' . $search . '%')
-            ->get();
+                        ->orWhere('location', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%')
+                        ->latest()
+                        ->get();
         } else {
-            // Jika tidak ada pencarian, tampilkan semua event
-            $events = \App\Models\Event::all();
+            // Jika tidak ada pencarian, tampilkan semua event dari yang terbaru
+            $events = \App\Models\Event::latest()->get();
         }
         
         // Ambil 1 event pertama untuk Hero Section

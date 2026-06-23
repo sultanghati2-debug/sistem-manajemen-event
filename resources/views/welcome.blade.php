@@ -73,6 +73,17 @@
             </div>
         </div>
     </section>
+</div>
+
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+            <a href="#semua-event" class="flex flex-col items-center text-white/70 hover:text-white transition-colors duration-300 group">
+                <span class="text-sm font-medium tracking-widest uppercase mb-2 group-hover:-translate-y-1 transition-transform">Scroll</span>
+                <svg class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </div>
+        </section> <section id="semua-event" class="py-16 bg-slate-900">
 
 <section id="semua-event" class="py-16 bg-slate-900">
     <div class="container mx-auto px-4 max-w-7xl">
